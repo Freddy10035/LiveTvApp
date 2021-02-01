@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -46,7 +47,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  int _current = 0;
+  List<String> list=["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"];
 
   @override
   Widget build(BuildContext context) {
@@ -145,26 +147,163 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
         backgroundColor: Colors.white,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
+      body: SingleChildScrollView(
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
+          children: <Widget>[
+            SizedBox(height: 10,
+            ),
+            CarouselSlider(
+              options: CarouselOptions(
+                  //height: 400.0,
 
-      ),
+                //pageSnapping : true,
+              aspectRatio: 16/9,
+              viewportFraction: 0.7,
+              initialPage: 0,
+              enableInfiniteScroll: false,
+              enlargeCenterPage: true,
+              //onPageChanged: callbackFunction,
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _current = index;
+                    });},
+
+              scrollDirection: Axis.horizontal
+              ),
+              items: [
+                Container(
+                  decoration: BoxDecoration(
+                  //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: AssetImage('assets/image/1.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: AssetImage('assets/image/2.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: AssetImage('assets/image/3.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: AssetImage('assets/image/4.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: BoxDecoration(
+                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: AssetImage('assets/image/5.jpg'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: list.map((url) {
+                int index = list.indexOf(url);
+                return Container(
+                  width: 8.0,
+                  height: 8.0,
+                  margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                   // boxShadow: BoxShadow(color: ),
+                    color: _current == index
+                        ? Color.fromRGBO(246, 3, 3, 0.9019607843137255)
+                        : Color.fromRGBO(255, 255, 255, 1.0),
+                  ),
+                );
+              }).toList(),
+            ),
+            SizedBox(height: 10,
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'Latest',
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,decoration: TextDecoration.underline,decorationColor: Colors.red ),
+                    textScaleFactor: 1.5,
+                  ),
+                ),
+                Expanded(
+                  child: Text('See All',
+                      textAlign: TextAlign.right,
+                      softWrap: true,
+                    textScaleFactor: 1.5,
+                    style: TextStyle(fontWeight: FontWeight.bold,backgroundColor: Colors.red,color: Colors.white,),
+                  ),
+                ),
+
+              ],
+
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                    height: 200,
+                    child: ListView(
+                      padding: const EdgeInsets.all(8),
+                      scrollDirection: Axis.horizontal,
+                      children: <Widget>[
+                        Container(
+
+                             // image: AssetImage('assets/image/1.jpg'),
+                              //fit: BoxFit.cover,
+
+
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                            image: DecorationImage(
+                              image: AssetImage('assets/image/2.jpg'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                            image: DecorationImage(
+                              image: AssetImage('assets/image/3.jpg'),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                    )
+                )
+              ],
+            ),
+          ],
+
+        ),
       ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }

@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  carousel_slider: ^3.0.0
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -32,6 +33,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -45,7 +47,11 @@ flutter:
   uses-material-design: true
 
   assets:
-      - assets/image/deadpool.png
+      - assets/image/1.jpg
+      - assets/image/2.jpg
+      - assets/image/3.jpg
+      - assets/image/4.jpg
+      - assets/image/5.jpg
 
   # To add assets to your application, add an assets section, like this:
 
