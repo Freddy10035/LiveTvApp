@@ -58,6 +58,71 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       drawer: Drawer(
+        child: Column(
+          children: [
+            Expanded(
+              flex: 1,
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.85,
+                child: DrawerHeader(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("images/header.jpeg"),
+                          fit: BoxFit.cover)),
+                  child: Text("Header"),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: ListView(children: [
+                ListTile(
+                  title: Text("Home"),
+                  leading: Icon(Icons.home),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("All Channel"),
+                  leading: Icon(Icons.file_copy_outlined),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Category"),
+                  leading: Icon(Icons.file_copy),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Top 10 Views"),
+                  leading: Icon(Icons.bar_chart),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Favorite"),
+                  leading: Icon(Icons.favorite),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                ListTile(
+                  title: Text("Settings"),
+                  leading: Icon(Icons.settings),
+                  onTap: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+
+              ]),
+            )
+          ],
+        ),
 
       ),
       appBar: AppBar(
@@ -67,6 +132,17 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title,
         style: TextStyle(color: Colors.black),
         ),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+              Icons.ac_unit,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              // do something
+            },
+          ),
+        ],
         backgroundColor: Colors.white,
       ),
       body: Center(
