@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:live_tv_app/gridview.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'All TV',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -251,11 +252,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Expanded(
-                  child: Text('See All',
-                      textAlign: TextAlign.right,
-                      softWrap: true,
-                    textScaleFactor: 1.5,
-                    style: TextStyle(fontWeight: FontWeight.bold,backgroundColor: Colors.red,color: Colors.white,),
+                    //onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>GridView(gridDelegate: null,))); },
+                  child: RaisedButton(
+                    onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>GridPage())); },
+                    child: const Text(
+                        'See All',
+                        style: TextStyle(fontSize: 15,color: Colors.white)
+                    ),
+                    color: Colors.red,
                   ),
                 ),
 
@@ -304,12 +308,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ),
                 Expanded(
-                  child: Text('See All',
-                    textAlign: TextAlign.right,
-                    softWrap: true,
-                    textScaleFactor: 1.5,
-                    style: TextStyle(fontWeight: FontWeight.bold,backgroundColor: Colors.red,color: Colors.white,),
-                  ),
+                  child: RaisedButton(
+                    onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>GridPage())); },
+                  child: const Text(
+                                  'See All',
+                      style: TextStyle(fontSize: 15,color: Colors.white)
+                          ),
+                         color: Colors.red,
+    ),
                 ),
 
               ],
