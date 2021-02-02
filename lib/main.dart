@@ -47,10 +47,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _current = 0;
-  List<String> list=["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"];
-  List<String> entries = <String>['assets/image/1.jpg', 'assets/image/2.jpg', 'assets/image/3.jpg','assets/image/4.jpg','assets/image/5.jpg'];
-  //final List<int> colorCodes = <int>[600, 500, 100];
+  int _current = 0;//for image counter
+  List<String> list=["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"];// for carousel
+  List<String> entries = <String>['assets/image/1.jpg', 'assets/image/2.jpg', 'assets/image/3.jpg','assets/image/4.jpg','assets/image/5.jpg'];// for horizontal list
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +239,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 10,
             ),
-            Row(
+            Row(// first listview
               children: <Widget>[
                 Expanded(
                   child: Text(
@@ -293,7 +292,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(height: 10,
             ),
-            Row(
+            Row(//2nd list view
               children: <Widget>[
                 Expanded(
                   child: Text(
