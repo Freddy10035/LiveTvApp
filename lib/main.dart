@@ -49,6 +49,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _current = 0;
   List<String> list=["1.jpg","2.jpg","3.jpg","4.jpg","5.jpg"];
+  List<String> entries = <String>['assets/image/1.jpg', 'assets/image/2.jpg', 'assets/image/3.jpg','assets/image/4.jpg','assets/image/5.jpg'];
+  //final List<int> colorCodes = <int>[600, 500, 100];
 
   @override
   Widget build(BuildContext context) {
@@ -218,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ],
             ),
-            Row(
+            Row(//for determining image position
               mainAxisAlignment: MainAxisAlignment.center,
               children: list.map((url) {
                 int index = list.indexOf(url);
@@ -231,7 +233,7 @@ class _MyHomePageState extends State<MyHomePage> {
                    // boxShadow: BoxShadow(color: ),
                     color: _current == index
                         ? Color.fromRGBO(246, 3, 3, 0.9019607843137255)
-                        : Color.fromRGBO(255, 255, 255, 1.0),
+                        : Color.fromRGBO(113, 111, 111, 1.0),
                   ),
                 );
               }).toList(),
@@ -264,43 +266,130 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: <Widget>[
                 Expanded(
-                    child: SizedBox(
-                    height: 200,
-                    child: ListView(
-                      padding: const EdgeInsets.all(8),
+                  child: SizedBox(
+                    height: 200.0,
+                    child: ListView.separated(
+                      //padding: const EdgeInsets.all(8),
+                      addAutomaticKeepAlives: false,
                       scrollDirection: Axis.horizontal,
-                      children: <Widget>[
-                        Container(
+                      itemCount: entries.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 3.0),
 
-                             // image: AssetImage('assets/image/1.jpg'),
-                              //fit: BoxFit.cover,
+                          height: 200,
+                          child: Image.asset('${entries[index]}'),
+                          decoration: BoxDecoration(shape: BoxShape.rectangle),
+                          //decoration: BoxDecoration,
+                        );
+                      },
+                      separatorBuilder: (BuildContext context, int index) => const Divider(),
+                  ),
+                  )
+                ),
 
-
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                              image: AssetImage('assets/image/2.jpg'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                            image: DecorationImage(
-                              image: AssetImage('assets/image/3.jpg'),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    )
-                )
               ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
+            SizedBox(height: 10,
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'Most View',
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,decoration: TextDecoration.underline,decorationColor: Colors.red ),
+                    textScaleFactor: 1.5,
+                  ),
+                ),
+                Expanded(
+                  child: Text('See All',
+                    textAlign: TextAlign.right,
+                    softWrap: true,
+                    textScaleFactor: 1.5,
+                    style: TextStyle(fontWeight: FontWeight.bold,backgroundColor: Colors.red,color: Colors.white,),
+                  ),
+                ),
+
+              ],
+
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                      height: 200.0,
+                      child: ListView.separated(
+                        //padding: const EdgeInsets.all(8),
+                        addAutomaticKeepAlives: false,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: entries.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 3.0),
+
+                            height: 200,
+                            child: Image.asset('${entries[index]}'),
+                            decoration: BoxDecoration(shape: BoxShape.rectangle),
+                            //decoration: BoxDecoration,
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) => const Divider(),
+                      ),
+                    )
+                ),
+
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(height: 10,
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    'Recent View',
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    style: TextStyle(fontWeight: FontWeight.bold,fontSize:20,decoration: TextDecoration.underline,decorationColor: Colors.red ),
+                    textScaleFactor: 1.5,
+                  ),
+                ),
+
+              ],
+
+            ),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                      height: 200.0,
+                      child: ListView.separated(
+                        //padding: const EdgeInsets.all(8),
+                        addAutomaticKeepAlives: false,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: entries.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 3.0),
+
+                            height: 200,
+                            child: Image.asset('${entries[index]}'),
+                            decoration: BoxDecoration(shape: BoxShape.rectangle),
+                            //decoration: BoxDecoration,
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) => const Divider(),
+                      ),
+                    )
+                ),
+
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+
           ],
 
         ),
