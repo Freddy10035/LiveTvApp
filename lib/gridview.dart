@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 void main() {
   runApp(GridPage());
 }
@@ -26,7 +27,6 @@ class GridPage extends StatelessWidget {
   }
 }
 
-
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -46,7 +46,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -56,18 +55,16 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-
         appBar: AppBar(
-          title: Text('All TV'),
-          leading: IconButton(
-            icon: Icon( Icons.chevron_left),
-            //onPressed:(){ Navigator.pop(context);},
+            title: Text('All TV'),
+            leading: IconButton(
+              icon: Icon(Icons.chevron_left),
+              //onPressed:(){ Navigator.pop(context);},
+            )
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
 
-          )
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-
-        ),
+            ),
         body: GridView.count(
           primary: false,
           padding: const EdgeInsets.all(20),
@@ -88,7 +85,34 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 //  borderRadius: BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
+                  image: AssetImage('assets/image/2.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/3.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/4.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/5.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -106,7 +130,34 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 //  borderRadius: BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
+                  image: AssetImage('assets/image/2.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/3.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/4.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/5.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -124,7 +175,34 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 //  borderRadius: BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
+                  image: AssetImage('assets/image/2.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/3.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/4.jpg'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+            Container(
+              decoration: BoxDecoration(
+                //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                image: DecorationImage(
+                  image: AssetImage('assets/image/5.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -142,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 //  borderRadius: BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
+                  image: AssetImage('assets/image/2.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
@@ -151,94 +229,12 @@ class _MyHomePageState extends State<MyHomePage> {
               decoration: BoxDecoration(
                 //  borderRadius: BorderRadius.all(Radius.circular(12)),
                 image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
+                  image: AssetImage('assets/image/3.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
           ],
-        )
-    );
+        ));
   }
 }
