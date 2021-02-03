@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:live_tv_app/gridview.dart';
+//import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -49,6 +50,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _current = 0; //for image counter
+  bool _folded = true;
   List<String> list = [
     "1.jpg",
     "2.jpg",
@@ -168,11 +170,11 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             CarouselSlider(
               options: CarouselOptions(
-                  //height: 400.0,
-
+                  height: 150.0,
                   //pageSnapping : true,
-                  aspectRatio: 16 / 9,
-                  viewportFraction: 0.7,
+                  enlargeStrategy: CenterPageEnlargeStrategy.scale,
+                  //aspectRatio: 16 / 9,
+                  viewportFraction: 0.8,
                   initialPage: 0,
                   enableInfiniteScroll: false,
                   enlargeCenterPage: true,
@@ -253,6 +255,64 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 10,
             ),
+            AnimatedContainer(
+              //search bar
+              duration: Duration(milliseconds: 400),
+              width: _folded ? 56 : 280,
+              height: 56,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(32),
+                color: Colors.white,
+                boxShadow: kElevationToShadow[6],
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Container(
+                    padding: EdgeInsets.only(left: 16),
+                    child: !_folded
+                        ? TextField(
+                            decoration: InputDecoration(
+                              hintText: 'Search Channel Name',
+                              hintStyle: TextStyle(color: Colors.red),
+                              border: InputBorder.none,
+                              fillColor: Colors.red,
+                            ),
+                          )
+                        : null,
+                  )),
+                  AnimatedContainer(
+                    duration: Duration(milliseconds: 400),
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: InkWell(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(_folded ? 32 : 0),
+                          topRight: Radius.circular(32),
+                          bottomLeft: Radius.circular(_folded ? 32 : 0),
+                          bottomRight: Radius.circular(32),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Icon(
+                            _folded ? Icons.search : Icons.close,
+                            color: Colors.blue,
+                          ),
+                        ),
+                        onTap: () {
+                          setState(() {
+                            _folded = !_folded;
+                          });
+                        },
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Row(
               // first listview
               children: <Widget>[
@@ -263,24 +323,27 @@ class _MyHomePageState extends State<MyHomePage> {
                     softWrap: true,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                         decoration: TextDecoration.underline,
                         decorationColor: Colors.red),
                     textScaleFactor: 1.5,
                   ),
                 ),
                 Expanded(
-                  //onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context)=>GridView(gridDelegate: null,))); },
-                  child: RaisedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => GridPage()));
-                    },
-                    child: const Text('See All',
-                        style: TextStyle(fontSize: 15, color: Colors.white)),
-                    color: Colors.red,
+                    child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => GridPage()));
+                  },
+                  child: const Text('See All',
+                      softWrap: true,
+                      style: TextStyle(fontSize: 12, color: Colors.white)),
+                  style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.red),
+                    minimumSize: MaterialStateProperty.all(Size.square(30)),
                   ),
-                ),
+                )),
               ],
             ),
             Row(
@@ -324,21 +387,26 @@ class _MyHomePageState extends State<MyHomePage> {
                     softWrap: true,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
+                        fontFamily: '',
                         decoration: TextDecoration.underline,
                         decorationColor: Colors.red),
                     textScaleFactor: 1.5,
                   ),
                 ),
                 Expanded(
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) => GridPage()));
                     },
                     child: const Text('See All',
-                        style: TextStyle(fontSize: 15, color: Colors.white)),
-                    color: Colors.red,
+                        style: TextStyle(fontSize: 12, color: Colors.white)),
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.red),
+                        minimumSize:
+                            MaterialStateProperty.all(Size.square(30))),
                   ),
                 ),
               ],
@@ -383,7 +451,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     softWrap: true,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 20,
+                        fontSize: 15,
                         decoration: TextDecoration.underline,
                         decorationColor: Colors.red),
                     textScaleFactor: 1.5,
