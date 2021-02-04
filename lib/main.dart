@@ -10,14 +10,18 @@ import 'package:live_tv_app/modelChannel.dart';
 void main() {
   runApp(MyApp());
 }
+
 List<ModelChannel> parseChannel(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<ModelChannel>((json) => ModelChannel.fromJson(json)).toList();
+  return parsed
+      .map<ModelChannel>((json) => ModelChannel.fromJson(json))
+      .toList();
 }
 
-Future<List<ModelChannel>> getData(http.Client client) async{
-  final response = await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
+Future<List<ModelChannel>> getData(http.Client client) async {
+  final response =
+      await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
@@ -29,9 +33,7 @@ Future<List<ModelChannel>> getData(http.Client client) async{
     // then throw an exception.
     throw Exception('Failed to load album');
   }
-
 }
-
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -58,6 +60,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
+
   //MyHomePage({Key key,this.})
 
   // This widget is the home page of your application. It is stateful, meaning
@@ -93,8 +96,6 @@ class _MyHomePageState extends State<MyHomePage> {
     'assets/image/5.jpg'
   ]; // for horizontal list
   //Future<List<ModelChannel>> future;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -383,29 +384,38 @@ class _MyHomePageState extends State<MyHomePage> {
                   height: 200.0,
                   child: FutureBuilder<List<ModelChannel>>(
                     future: getData(http.Client()),
-                    builder: (context,snapshot)
-                    {
-                     return ListView.separated(
-                        //padding: const EdgeInsets.all(8),
-                        addAutomaticKeepAlives: false,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return Container(
-                            margin: EdgeInsets.symmetric(
-                                vertical: 10.0, horizontal: 3.0),
+                    builder: (context, snapshot) {
+                      if (snapshot.data == null) {
+                        return Text("Loading....");
+                      } else
+                        return ListView.separated(
+                          //padding: const EdgeInsets.all(8),
+                          addAutomaticKeepAlives: false,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: 5,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 10.0, horizontal: 3.0),
+                                height: 200,
+                                width: 200,
+                                child: ((snapshot.data[index].the2 ==
+                                        "7")
+                                    ? Image.network(
+                                        snapshot.data[index].channelimage,
+                                        semanticLabel:
+                                            snapshot.data[index].channelname,
+                                      )
+                                    : null)
+                                //decoration: BoxDecoration(),
 
-                            height: 200,
-                            child: Image.network(snapshot.data[index].channelimage),
-                            decoration: BoxDecoration(shape: BoxShape.rectangle),
-                            //decoration: BoxDecoration,
-                          );
-                        },
-                        separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
-                      );
+                                //decoration: BoxDecoration,
+                                );
+                          },
+                          separatorBuilder: (BuildContext context, int index) =>
+                              const Divider(),
+                        );
                     },
-
                   ),
                 )),
               ],
