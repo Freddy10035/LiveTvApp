@@ -24,7 +24,7 @@ class LiveTvPlayer extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Youtube Player Flutter',
+      title: 'Live TV',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
@@ -176,7 +176,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           title: const Text(
-            'Youtube Player Flutter',
+            'Live TV',
             style: TextStyle(color: Colors.white),
           ),
           actions: [

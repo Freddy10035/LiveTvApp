@@ -1,18 +1,44 @@
+import 'dart:convert';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:live_tv_app/gridview.dart';
+import 'package:http/http.dart' as http;
+import 'package:live_tv_app/modelChannel.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
 }
+List<ModelChannel> parseChannel(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+  return parsed.map<ModelChannel>((json) => ModelChannel.fromJson(json)).toList();
+}
+
+Future<List<ModelChannel>> getData(http.Client client) async{
+  final response = await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
+
+  if (response.statusCode == 200) {
+    // If the server did return a 200 OK response,
+    // then parse the JSON.
+    return parseChannel(response.body);
+    //return channels;
+  } else {
+    //If the server did not return a 200 OK response,
+    // then throw an exception.
+    throw Exception('Failed to load album');
+  }
+
+}
+
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'All TV',
+      title: 'Live TV App',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -32,6 +58,7 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
+  //MyHomePage({Key key,this.})
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -65,6 +92,9 @@ class _MyHomePageState extends State<MyHomePage> {
     'assets/image/4.jpg',
     'assets/image/5.jpg'
   ]; // for horizontal list
+  //Future<List<ModelChannel>> future;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -318,7 +348,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    'Latest',
+                    'Bangladesh',
                     textAlign: TextAlign.left,
                     softWrap: true,
                     style: TextStyle(
@@ -351,24 +381,31 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                   height: 200.0,
-                  child: ListView.separated(
-                    //padding: const EdgeInsets.all(8),
-                    addAutomaticKeepAlives: false,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 3.0),
+                  child: FutureBuilder<List<ModelChannel>>(
+                    future: getData(http.Client()),
+                    builder: (context,snapshot)
+                    {
+                     return ListView.separated(
+                        //padding: const EdgeInsets.all(8),
+                        addAutomaticKeepAlives: false,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: EdgeInsets.symmetric(
+                                vertical: 10.0, horizontal: 3.0),
 
-                        height: 200,
-                        child: Image.asset('${entries[index]}'),
-                        decoration: BoxDecoration(shape: BoxShape.rectangle),
-                        //decoration: BoxDecoration,
+                            height: 200,
+                            child: Image.network(snapshot.data[index].channelimage),
+                            decoration: BoxDecoration(shape: BoxShape.rectangle),
+                            //decoration: BoxDecoration,
+                          );
+                        },
+                        separatorBuilder: (BuildContext context, int index) =>
+                        const Divider(),
                       );
                     },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
+
                   ),
                 )),
               ],
