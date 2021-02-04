@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:live_tv_app/youtubePlayer.dart';
 
 void main() {
   runApp(GridPage());
@@ -58,9 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
             title: Text('All TV'),
             leading: IconButton(
-              icon: Icon(Icons.chevron_left),
-              onPressed:(){} //Navigator.pop(context);},
-            )
+                icon: Icon(Icons.chevron_left),
+                onPressed: () {} //Navigator.pop(context);},
+                )
             // Here we take the value from the MyHomePage object that was created by
             // the App.build method, and use it to set our appbar title.
 
@@ -72,12 +73,16 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisSpacing: 10,
           crossAxisCount: 3,
           children: <Widget>[
-            Container(
-              decoration: BoxDecoration(
-                //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                image: DecorationImage(
-                  image: AssetImage('assets/image/1.jpg'),
-                  fit: BoxFit.cover,
+            InkWell(
+              onTap: (){Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LiveTvPlayer()));},
+              child: Container(
+                decoration: BoxDecoration(
+                  //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  image: DecorationImage(
+                    image: AssetImage('assets/image/1.jpg'),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
