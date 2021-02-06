@@ -57,7 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
         appBar: AppBar(
-            title: Text('All TV'),
+            title: Text('All Channels'),
             leading: IconButton(
                 icon: Icon(Icons.chevron_left),
                 onPressed: () {} //Navigator.pop(context);},

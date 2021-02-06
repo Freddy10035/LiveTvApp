@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -9,30 +10,6 @@ import 'package:live_tv_app/modelChannel.dart';
 
 void main() {
   runApp(MyApp());
-}
-
-List<ModelChannel> parseChannel(String responseBody) {
-  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed
-      .map<ModelChannel>((json) => ModelChannel.fromJson(json))
-      .toList();
-}
-
-Future<List<ModelChannel>> getData(http.Client client) async {
-  final response =
-      await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return parseChannel(response.body);
-    //return channels;
-  } else {
-    //If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load album');
-  }
 }
 
 class MyApp extends StatelessWidget {
@@ -96,6 +73,137 @@ class _MyHomePageState extends State<MyHomePage> {
     'assets/image/5.jpg'
   ]; // for horizontal list
   //Future<List<ModelChannel>> future;
+  List<ModelChannel> allChannels = new List();
+  List<ModelChannel> bd = new List();
+  List<ModelChannel> france= new List();
+  List<ModelChannel> pakistan = new List();
+  List<ModelChannel> singapore= new List();
+  List<ModelChannel> qatar= new List();
+  List<ModelChannel> us= new List();
+  List<ModelChannel> russia= new List();
+  List<ModelChannel> uk= new List();
+  List<ModelChannel> turkey= new List();
+  List<ModelChannel> india= new List();
+  List<ModelChannel> saudi= new List();
+  List<ModelChannel> un= new List();
+  List<ModelChannel> california= new List();
+  List<ModelChannel> southKorea= new List();
+  List<ModelChannel> vatican= new List();
+  Future future;
+
+  List<ModelChannel> parseChannel(String responseBody) {
+    final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
+    return parsed
+        .map<ModelChannel>((json) => ModelChannel.fromJson(json))
+        .toList();
+  }
+
+  Future<List<ModelChannel>> getData(http.Client client) async {
+    final response =
+        await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      //allChannels=parseChannel(response.body);
+      this.setState(() {
+        allChannels = parseChannel(response.body);
+        //bool loading= false;
+      });
+
+      print(allChannels.length);
+      allChannels.forEach((element) {
+        if (element.channeltype == "7") {
+          if (bd.isEmpty) {
+            bd.add(element);
+          } else if (bd.length <= 2) {
+            bd.add(element);
+          } else {}
+        } else if (element.channeltype == "2") {
+          france.add(element);
+        } else if (element.channeltype == "8") {
+          if (pakistan.isEmpty) {
+            pakistan.add(element);
+          } else if (pakistan.length <= 3) {
+            pakistan.add(element);
+          } else {}
+        } else if (element.channeltype == "9") {
+          if (singapore.isEmpty) {
+            singapore.add(element);
+          } else if (singapore.length <= 1) {
+            singapore.add(element);
+          } else {}
+        } else if (element.channeltype == "10") {
+          if (qatar.isEmpty) {
+            qatar.add(element);
+          } else {}
+        } else if (element.channeltype == "12") {
+          if (us.isEmpty) {
+            us.add(element);
+          } else if (us.length <= 6) {
+            us.add(element);
+          } else {}
+        } else if (element.channeltype == "13") {
+          if (russia.isEmpty) {
+            russia.add(element);
+          } else {}
+        } else if (element.channeltype == "15") {
+          if (uk.isEmpty) {
+            uk.add(element);
+          } else {}
+        } else if (element.channeltype == "16") {
+          if (turkey.isEmpty) {
+            turkey.add(element);
+          } else {}
+        } else if (element.channeltype == "17") {
+          if (india.isEmpty) {
+            india.add(element);
+          } else if (india.length <= 4) {
+            india.add(element);
+          } else {}
+        } else if (element.channeltype == "18") {
+          if (saudi.isEmpty) {
+            saudi.add(element);
+          } else if (saudi.length <= 1) {
+            saudi.add(element);
+          } else {}
+        } else if (element.channeltype == "19") {
+          if (un.isEmpty) {
+            un.add(element);
+          } else {}
+        } else if (element.channeltype == "20") {
+          if (california.isEmpty) {
+            california.add(element);
+          } else {}
+        } else if (element.channeltype == "21") {
+          if (southKorea.isEmpty) {
+            southKorea.add(element);
+          } else {}
+        } else {
+          {
+            if (vatican.isEmpty) {
+              vatican.add(element);
+            } else {}
+          }
+        }
+      });
+      print(pakistan.length);
+
+      return parseChannel(response.body);
+    } else {
+      //If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    future = this.getData(http.Client());
+
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -349,7 +457,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    'Bangladesh',
+                    "Bangladesh",
                     textAlign: TextAlign.left,
                     softWrap: true,
                     style: TextStyle(
@@ -383,7 +491,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: SizedBox(
                   height: 200.0,
                   child: FutureBuilder<List<ModelChannel>>(
-                    future: getData(http.Client()),
+                    future: future,
                     builder: (context, snapshot) {
                       if (snapshot.data == null) {
                         return Text("Loading....");
@@ -392,21 +500,18 @@ class _MyHomePageState extends State<MyHomePage> {
                           //padding: const EdgeInsets.all(8),
                           addAutomaticKeepAlives: false,
                           scrollDirection: Axis.horizontal,
-                          itemCount: 5,
+                          itemCount: bd.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
                                 margin: EdgeInsets.symmetric(
                                     vertical: 10.0, horizontal: 3.0),
                                 height: 200,
                                 width: 200,
-                                child: ((snapshot.data[index].the2 ==
-                                        "7")
-                                    ? Image.network(
-                                        snapshot.data[index].channelimage,
-                                        semanticLabel:
-                                            snapshot.data[index].channelname,
+                                child: Image.network(
+                                        bd[index].channelimage,
+                                        //bd[index].channelimage
                                       )
-                                    : null)
+
                                 //decoration: BoxDecoration(),
 
                                 //decoration: BoxDecoration,
@@ -429,7 +534,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    'Most View',
+                    pakistan[0].categoryname,
                     textAlign: TextAlign.left,
                     softWrap: true,
                     style: TextStyle(
@@ -467,17 +572,21 @@ class _MyHomePageState extends State<MyHomePage> {
                     //padding: const EdgeInsets.all(8),
                     addAutomaticKeepAlives: false,
                     scrollDirection: Axis.horizontal,
-                    itemCount: entries.length,
+                    itemCount: pakistan.length,
                     itemBuilder: (BuildContext context, int index) {
                       return Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 3.0),
+                          margin: EdgeInsets.symmetric(
+                              vertical: 10.0, horizontal: 3.0),
+                          height: 200,
+                          width: 200,
+                          child: Image.network(
+                              //snapshot.data[index].channelimage,
+                              pakistan[index].channelimage)
 
-                        height: 200,
-                        child: Image.asset('${entries[index]}'),
-                        decoration: BoxDecoration(shape: BoxShape.rectangle),
-                        //decoration: BoxDecoration,
-                      );
+                          //decoration: BoxDecoration(),
+
+                          //decoration: BoxDecoration,
+                          );
                     },
                     separatorBuilder: (BuildContext context, int index) =>
                         const Divider(),
