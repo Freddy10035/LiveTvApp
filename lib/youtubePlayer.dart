@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:live_tv_app/modelChannel.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 //import 'video_list.dart';
@@ -20,11 +21,14 @@ void main() {
 
 /// Creates [LiveTvPlayer] widget.
 class LiveTvPlayer extends StatelessWidget {
+  final ModelChannel channel;
+
+  const LiveTvPlayer({Key key, this.channel}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Live TV',
+      title: channel.channelname + "Live",
       theme: ThemeData(
         primarySwatch: Colors.blue,
         appBarTheme: const AppBarTheme(
@@ -41,18 +45,22 @@ class LiveTvPlayer extends StatelessWidget {
           color: Colors.blueAccent,
         ),
       ),
-      home: MyHomePage(),
+      home: MyHomePage(channel: channel,),
     );
   }
 }
 
 /// Homepage
 class MyHomePage extends StatefulWidget {
+  final ModelChannel channel;
+
+  const MyHomePage({Key key, this.channel}) : super(key: key);
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() => _MyHomePageState(channel);
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final ModelChannel channel;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
   YoutubePlayerController _controller;
   TextEditingController _idController;
@@ -76,17 +84,19 @@ class _MyHomePageState extends State<MyHomePage> {
     '34_PXCzGw1M',
   ];
 
+  _MyHomePageState(this.channel);
+
   @override
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: _ids.first,
+      initialVideoId: channel.channelurl,
       flags: const YoutubePlayerFlags(
         mute: false,
         autoPlay: true,
         disableDragSeek: false,
         loop: false,
-        isLive: false,
+        isLive: true,
         forceHD: false,
         enableCaption: true,
       ),
@@ -170,26 +180,12 @@ class _MyHomePageState extends State<MyHomePage> {
         appBar: AppBar(
           leading: Padding(
             padding: const EdgeInsets.only(left: 12.0),
-            child: Image.asset(
-              'assets/ypf.png',
-              fit: BoxFit.fitWidth,
-            ),
+            child: Icon(Icons.chevron_left)
           ),
-          title: const Text(
-            'Live TV',
+          title: Text(
+            channel.channelname + " Live",
             style: TextStyle(color: Colors.white),
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.video_library),
-              onPressed: () => Navigator.push(
-                context,
-                CupertinoPageRoute(
-                  //builder: (context) => VideoList(),
-                ),
-              ),
-            ),
-          ],
         ),
         body: ListView(
           children: [
@@ -204,8 +200,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   _space,
                   _text('Channel', _videoMetaData.author),
                   _space,
-                  _text('Video Id', _videoMetaData.videoId),
-                  _space,
+                  // _text('Video Id', _videoMetaData.videoId),
+                  // _space,
                   Row(
                     children: [
                       _text(
@@ -220,33 +216,33 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   _space,
-                  TextField(
-                    enabled: _isPlayerReady,
-                    controller: _idController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Enter youtube \<video id\> or \<link\>',
-                      fillColor: Colors.blueAccent.withAlpha(20),
-                      filled: true,
-                      hintStyle: const TextStyle(
-                        fontWeight: FontWeight.w300,
-                        color: Colors.blueAccent,
-                      ),
-                      suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () => _idController.clear(),
-                      ),
-                    ),
-                  ),
-                  _space,
-                  Row(
-                    children: [
-                      _loadCueButton('LOAD'),
-                      const SizedBox(width: 10.0),
-                      _loadCueButton('CUE'),
-                    ],
-                  ),
-                  _space,
+                  // TextField(
+                  //   enabled: _isPlayerReady,
+                  //   controller: _idController,
+                  //   decoration: InputDecoration(
+                  //     border: InputBorder.none,
+                  //     hintText: 'Enter youtube \<video id\> or \<link\>',
+                  //     fillColor: Colors.blueAccent.withAlpha(20),
+                  //     filled: true,
+                  //     hintStyle: const TextStyle(
+                  //       fontWeight: FontWeight.w300,
+                  //       color: Colors.blueAccent,
+                  //     ),
+                  //     suffixIcon: IconButton(
+                  //       icon: const Icon(Icons.clear),
+                  //       onPressed: () => _idController.clear(),
+                  //     ),
+                  //   ),
+                  // ),
+                  //_space,
+                  // Row(
+                  //   children: [
+                  //     _loadCueButton('LOAD'),
+                  //     const SizedBox(width: 10.0),
+                  //     _loadCueButton('CUE'),
+                  //   ],
+                  // ),
+                  //_space,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [

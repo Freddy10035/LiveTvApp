@@ -457,7 +457,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    "Bangladesh",
+                    bd.isEmpty? "Loading" : bd[0].categoryname,
                     textAlign: TextAlign.left,
                     softWrap: true,
                     style: TextStyle(
@@ -472,7 +472,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: ElevatedButton(
                   onPressed: () {
                     Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => GridPage()));
+                        MaterialPageRoute(builder: (context) => GridPage(channel: bd,)));
                   },
                   child: const Text('See All',
                       softWrap: true,
@@ -490,17 +490,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                   height: 200.0,
-                  child: FutureBuilder<List<ModelChannel>>(
-                    future: future,
-                    builder: (context, snapshot) {
-                      if (snapshot.data == null) {
-                        return Text("Loading....");
-                      } else
-                        return ListView.separated(
+                  child:  ListView.separated(
                           //padding: const EdgeInsets.all(8),
                           addAutomaticKeepAlives: false,
                           scrollDirection: Axis.horizontal,
-                          itemCount: bd.length,
+                          itemCount: bd.isEmpty? 0 : bd.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
                                 margin: EdgeInsets.symmetric(
@@ -519,10 +513,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           },
                           separatorBuilder: (BuildContext context, int index) =>
                               const Divider(),
-                        );
-                    },
                   ),
-                )),
+                    )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -534,7 +526,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: <Widget>[
                 Expanded(
                   child: Text(
-                    pakistan[0].categoryname,
+                    pakistan.isEmpty? "Loading" : pakistan[0].categoryname,
                     textAlign: TextAlign.left,
                     softWrap: true,
                     style: TextStyle(
