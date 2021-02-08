@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+
 import 'package:live_tv_app/gridview.dart';
 import 'package:http/http.dart' as http;
 import 'package:live_tv_app/modelChannel.dart';
+import 'package:live_tv_app/horizontalScrollView.dart';
+import 'package:live_tv_app/textDesign.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -452,68 +454,46 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              // first listview
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    bd.isEmpty? "Loading" : bd[0].categoryname,
-                    textAlign: TextAlign.left,
-                    softWrap: true,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.red),
-                    textScaleFactor: 1.5,
-                  ),
+
+          Row(
+            // first listview
+            children: <Widget>[
+              Expanded(
+                child: Text(
+                  allChannels.isEmpty? "Loading" : "All Channels",
+                  textAlign: TextAlign.left,
+                  softWrap: true,
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      decoration: TextDecoration.underline,
+                      decorationColor: Colors.red),
+                  textScaleFactor: 1.5,
                 ),
-                Expanded(
-                    child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => GridPage(channel: bd,)));
-                  },
-                  child: const Text('See All',
-                      softWrap: true,
-                      style: TextStyle(fontSize: 12, color: Colors.white)),
-                  style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red),
-                    minimumSize: MaterialStateProperty.all(Size.square(30)),
-                  ),
-                )),
-              ],
-            ),
+              ),
+              Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => GridPage(channel: allChannels,)));
+                    },
+                    child: const Text('See All',
+                        softWrap: true,
+                        style: TextStyle(fontSize: 12, color: Colors.white)),
+                    style: ButtonStyle(
+                      backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.red),
+                      minimumSize: MaterialStateProperty.all(Size.square(30)),
+                    ),
+                  )),
+            ],
+          ),
             Row(
               children: <Widget>[
                 Expanded(
                     child: SizedBox(
-                  height: 200.0,
-                  child:  ListView.separated(
-                          //padding: const EdgeInsets.all(8),
-                          addAutomaticKeepAlives: false,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: bd.isEmpty? 0 : bd.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 10.0, horizontal: 3.0),
-                                height: 200,
-                                width: 200,
-                                child: Image.network(
-                                        bd[index].channelimage,
-                                        //bd[index].channelimage
-                                      )
-
-                                //decoration: BoxDecoration(),
-
-                                //decoration: BoxDecoration,
-                                );
-                          },
-                          separatorBuilder: (BuildContext context, int index) =>
-                              const Divider(),
-                  ),
+                        height: 200.0,
+                        child:  Scroll(allChannels)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -521,119 +501,216 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              //2nd list view
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    pakistan.isEmpty? "Loading" : pakistan[0].categoryname,
-                    textAlign: TextAlign.left,
-                    softWrap: true,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        fontFamily: '',
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.red),
-                    textScaleFactor: 1.5,
-                  ),
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => GridPage()));
-                    },
-                    child: const Text('See All',
-                        style: TextStyle(fontSize: 12, color: Colors.white)),
-                    style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Colors.red),
-                        minimumSize:
-                            MaterialStateProperty.all(Size.square(30))),
-                  ),
-                ),
-              ],
-            ),
+
+            CountryName(bd),
             Row(
               children: <Widget>[
                 Expanded(
                     child: SizedBox(
-                  height: 200.0,
-                  child: ListView.separated(
-                    //padding: const EdgeInsets.all(8),
-                    addAutomaticKeepAlives: false,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: pakistan.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                          margin: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 3.0),
-                          height: 200,
-                          width: 200,
-                          child: Image.network(
-                              //snapshot.data[index].channelimage,
-                              pakistan[index].channelimage)
-
-                          //decoration: BoxDecoration(),
-
-                          //decoration: BoxDecoration,
-                          );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
-                  ),
-                )),
+                        height: 200.0,
+                        child:  Scroll(bd)
+                    )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                  child: Text(
-                    'Recent View',
-                    textAlign: TextAlign.left,
-                    softWrap: true,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 15,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.red),
-                    textScaleFactor: 1.5,
-                  ),
-                ),
-              ],
-            ),
+            CountryName(pakistan),
             Row(
               children: <Widget>[
                 Expanded(
                     child: SizedBox(
-                  height: 200.0,
-                  child: ListView.separated(
-                    //padding: const EdgeInsets.all(8),
-                    addAutomaticKeepAlives: false,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: entries.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return Container(
-                        margin: EdgeInsets.symmetric(
-                            vertical: 10.0, horizontal: 3.0),
-
-                        height: 200,
-                        child: Image.asset('${entries[index]}'),
-                        decoration: BoxDecoration(shape: BoxShape.rectangle),
-                        //decoration: BoxDecoration,
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) =>
-                        const Divider(),
-                  ),
-                )),
+                        height: 200.0,
+                        child:  Scroll(pakistan)
+                    )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(singapore),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(singapore)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(qatar),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(qatar)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(us),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(us)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(russia),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(russia)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(uk),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(uk)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(turkey),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(turkey)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(india),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(india)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(saudi),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(saudi)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(un),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(un)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(california),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(california)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(southKorea),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(southKorea)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(vatican),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(vatican)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            CountryName(france),
+            Row(
+              children: <Widget>[
+                Expanded(
+                    child: SizedBox(
+                        height: 200.0,
+                        child:  Scroll(france)
+                    )),
+              ],
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            ),
+            SizedBox(
+              height: 10,
             ),
           ],
         ),

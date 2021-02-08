@@ -15,7 +15,7 @@ class GridPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: Text(channel[0].categoryname + "Channels"),
+            title: (channel.length<10)? Text(channel[0].categoryname + " Channels") :Text("All Channels"),
             leading: IconButton(
                 icon: Icon(Icons.chevron_left),
                 onPressed: () {} //Navigator.pop(context);},
