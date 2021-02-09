@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import 'package:live_tv_app/modelChannel.dart';
 import 'package:live_tv_app/youtubePlayer.dart';
 
@@ -10,20 +11,33 @@ class GridPage extends StatelessWidget {
   final List<ModelChannel> channel;
 
   const GridPage({Key key, this.channel}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            title: (channel.length<10)? Text(channel[0].categoryname + " Channels") :Text("All Channels"),
+            backgroundColor: Colors.white,
+            title: (channel.length < 10)
+                ? Text(
+                    channel[0].categoryname + " Channels",
+                    style: TextStyle(color: Colors.black),
+                  )
+                : Text(
+                    "All Channels",
+                    style: TextStyle(color: Colors.black),
+                  ),
             leading: IconButton(
-                icon: Icon(Icons.chevron_left),
-                onPressed: () {} //Navigator.pop(context);},
+              icon: Icon(Icons.chevron_left),
+              color: Colors.black,
+              onPressed: () {
+                Navigator.pop(context);
+              },
             )
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
+            // Here we take the value from the MyHomePage object that was created by
+            // the App.build method, and use it to set our appbar title.
 
-        ),
+            ),
         body: GridView.count(
             primary: false,
             padding: const EdgeInsets.all(20),
@@ -32,8 +46,14 @@ class GridPage extends StatelessWidget {
             crossAxisCount: 3,
             children: List.generate(channel.length, (index) {
               return InkWell(
-                onTap: (){Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LiveTvPlayer(channel: channel[index],)));},
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => LiveTvPlayer(
+                                channel: channel[index],
+                              )));
+                },
                 child: Container(
                   decoration: BoxDecoration(
                     //  borderRadius: BorderRadius.all(Radius.circular(12)),
@@ -44,10 +64,6 @@ class GridPage extends StatelessWidget {
                   ),
                 ),
               );
-            })
-        )
-    );
+            })));
   }
 }
-
-

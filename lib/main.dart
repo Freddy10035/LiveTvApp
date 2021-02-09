@@ -1,10 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:live_tv_app/gridview.dart';
-import 'package:http/http.dart' as http;
 import 'package:live_tv_app/modelChannel.dart';
 import 'package:live_tv_app/horizontalScrollView.dart';
 import 'package:live_tv_app/textDesign.dart';
@@ -67,30 +66,24 @@ class _MyHomePageState extends State<MyHomePage> {
     "4.jpg",
     "5.jpg"
   ]; // for carousel
-  List<String> entries = <String>[
-    'assets/image/1.jpg',
-    'assets/image/2.jpg',
-    'assets/image/3.jpg',
-    'assets/image/4.jpg',
-    'assets/image/5.jpg'
-  ]; // for horizontal list
+
   //Future<List<ModelChannel>> future;
   List<ModelChannel> allChannels = new List();
   List<ModelChannel> bd = new List();
-  List<ModelChannel> france= new List();
+  List<ModelChannel> france = new List();
   List<ModelChannel> pakistan = new List();
-  List<ModelChannel> singapore= new List();
-  List<ModelChannel> qatar= new List();
-  List<ModelChannel> us= new List();
-  List<ModelChannel> russia= new List();
-  List<ModelChannel> uk= new List();
-  List<ModelChannel> turkey= new List();
-  List<ModelChannel> india= new List();
-  List<ModelChannel> saudi= new List();
-  List<ModelChannel> un= new List();
-  List<ModelChannel> california= new List();
-  List<ModelChannel> southKorea= new List();
-  List<ModelChannel> vatican= new List();
+  List<ModelChannel> singapore = new List();
+  List<ModelChannel> qatar = new List();
+  List<ModelChannel> us = new List();
+  List<ModelChannel> russia = new List();
+  List<ModelChannel> uk = new List();
+  List<ModelChannel> turkey = new List();
+  List<ModelChannel> india = new List();
+  List<ModelChannel> saudi = new List();
+  List<ModelChannel> un = new List();
+  List<ModelChannel> california = new List();
+  List<ModelChannel> southKorea = new List();
+  List<ModelChannel> vatican = new List();
   Future future;
 
   List<ModelChannel> parseChannel(String responseBody) {
@@ -103,7 +96,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<ModelChannel>> getData(http.Client client) async {
     final response =
-        await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
+    await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -113,7 +106,7 @@ class _MyHomePageState extends State<MyHomePage> {
         //bool loading= false;
       });
 
-      print(allChannels.length);
+      //print(allChannels.length);
       allChannels.forEach((element) {
         if (element.channeltype == "7") {
           if (bd.isEmpty) {
@@ -189,7 +182,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         }
       });
-      print(pakistan.length);
+      //print(pakistan.length);
 
       return parseChannel(response.body);
     } else {
@@ -204,7 +197,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     future = this.getData(http.Client());
-
   }
 
   @override
@@ -222,7 +214,10 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               flex: 1,
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.85,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.85,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
                       image: DecorationImage(
@@ -312,14 +307,14 @@ class _MyHomePageState extends State<MyHomePage> {
             CarouselSlider(
               options: CarouselOptions(
                   height: 150.0,
-                  //pageSnapping : true,
+                  //pageSnapping : false,
                   enlargeStrategy: CenterPageEnlargeStrategy.scale,
-                  //aspectRatio: 16 / 9,
-                  viewportFraction: 0.8,
+                  //aspectRatio: 16/9,
+                  viewportFraction: 0.85,
                   initialPage: 0,
                   enableInfiniteScroll: false,
                   enlargeCenterPage: true,
-                  //onPageChanged: callbackFunction,
+
                   onPageChanged: (index, reason) {
                     setState(() {
                       _current = index;
@@ -329,8 +324,9 @@ class _MyHomePageState extends State<MyHomePage> {
               items: [
                 Container(
                   decoration: BoxDecoration(
-                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
+
                       image: AssetImage('assets/image/1.jpg'),
                       fit: BoxFit.cover,
                     ),
@@ -338,7 +334,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
                       image: AssetImage('assets/image/2.jpg'),
                       fit: BoxFit.cover,
@@ -347,7 +343,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
                       image: AssetImage('assets/image/3.jpg'),
                       fit: BoxFit.cover,
@@ -356,7 +352,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
                       image: AssetImage('assets/image/4.jpg'),
                       fit: BoxFit.cover,
@@ -365,7 +361,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
-                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                    borderRadius: BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
                       image: AssetImage('assets/image/5.jpg'),
                       fit: BoxFit.cover,
@@ -396,58 +392,34 @@ class _MyHomePageState extends State<MyHomePage> {
             SizedBox(
               height: 10,
             ),
-            AnimatedContainer(
+            Container(
+
               //search bar
-              duration: Duration(milliseconds: 400),
-              width: _folded ? 56 : 280,
-              height: 56,
+              width: 320,
+              height: 44,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(32),
-                color: Colors.white,
-                boxShadow: kElevationToShadow[6],
+                color: Colors.black12,
+                //boxShadow: kElevationToShadow[6],
               ),
               child: Row(
                 children: [
                   Expanded(
                       child: Container(
-                    padding: EdgeInsets.only(left: 16),
-                    child: !_folded
-                        ? TextField(
+                          padding: EdgeInsets.only(left: 16),
+                          child: TextField(
+                            textAlign: TextAlign.center,
                             decoration: InputDecoration(
                               hintText: 'Search Channel Name',
-                              hintStyle: TextStyle(color: Colors.red),
+                              suffixIcon: Icon(Icons.search),
+                              hintStyle: TextStyle(color: Colors.black54),
                               border: InputBorder.none,
-                              fillColor: Colors.red,
+                              //fillColor: Colors.red,
                             ),
                           )
-                        : null,
-                  )),
-                  AnimatedContainer(
-                    duration: Duration(milliseconds: 400),
-                    child: Material(
-                      type: MaterialType.transparency,
-                      child: InkWell(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(_folded ? 32 : 0),
-                          topRight: Radius.circular(32),
-                          bottomLeft: Radius.circular(_folded ? 32 : 0),
-                          bottomRight: Radius.circular(32),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Icon(
-                            _folded ? Icons.search : Icons.close,
-                            color: Colors.blue,
-                          ),
-                        ),
-                        onTap: () {
-                          setState(() {
-                            _folded = !_folded;
-                          });
-                        },
-                      ),
-                    ),
-                  )
+
+                      )),
+
                 ],
               ),
             ),
@@ -455,45 +427,46 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 10,
             ),
 
-          Row(
-            // first listview
-            children: <Widget>[
-              Expanded(
-                child: Text(
-                  allChannels.isEmpty? "Loading" : "All Channels",
-                  textAlign: TextAlign.left,
-                  softWrap: true,
-                  style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 15,
-                      decoration: TextDecoration.underline,
-                      decorationColor: Colors.red),
-                  textScaleFactor: 1.5,
+            Row(
+              // first listview
+              children: <Widget>[
+                Expanded(
+                  child: Text(
+                    allChannels.isEmpty ? "Loading" : "All Channels",
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.red),
+                    textScaleFactor: 1.5,
+                  ),
                 ),
-              ),
-              Expanded(
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => GridPage(channel: allChannels,)));
-                    },
-                    child: const Text('See All',
-                        softWrap: true,
-                        style: TextStyle(fontSize: 12, color: Colors.white)),
-                    style: ButtonStyle(
-                      backgroundColor:
-                      MaterialStateProperty.all<Color>(Colors.red),
-                      minimumSize: MaterialStateProperty.all(Size.square(30)),
-                    ),
-                  )),
-            ],
-          ),
+                Expanded(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) =>
+                                GridPage(channel: allChannels,)));
+                      },
+                      child: const Text('See All',
+                          softWrap: true,
+                          style: TextStyle(fontSize: 12, color: Colors.white)),
+                      style: ButtonStyle(
+                        backgroundColor:
+                        MaterialStateProperty.all<Color>(Colors.red),
+                        minimumSize: MaterialStateProperty.all(Size.square(30)),
+                      ),
+                    )),
+              ],
+            ),
             Row(
               children: <Widget>[
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(allChannels)
+                        child: Scroll(allChannels)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -508,7 +481,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(bd)
+                        child: Scroll(bd)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -522,7 +495,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(pakistan)
+                        child: Scroll(pakistan)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -536,7 +509,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(singapore)
+                        child: Scroll(singapore)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -550,7 +523,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(qatar)
+                        child: Scroll(qatar)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -564,7 +537,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(us)
+                        child: Scroll(us)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -578,7 +551,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(russia)
+                        child: Scroll(russia)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -592,7 +565,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(uk)
+                        child: Scroll(uk)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -606,7 +579,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(turkey)
+                        child: Scroll(turkey)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -620,7 +593,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(india)
+                        child: Scroll(india)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -634,7 +607,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(saudi)
+                        child: Scroll(saudi)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -648,7 +621,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(un)
+                        child: Scroll(un)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -662,7 +635,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(california)
+                        child: Scroll(california)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -676,7 +649,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(southKorea)
+                        child: Scroll(southKorea)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -690,7 +663,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(vatican)
+                        child: Scroll(vatican)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -704,7 +677,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 Expanded(
                     child: SizedBox(
                         height: 200.0,
-                        child:  Scroll(france)
+                        child: Scroll(france)
                     )),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
