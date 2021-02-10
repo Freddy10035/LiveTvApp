@@ -157,16 +157,7 @@ class _MyHomePageState extends State<MyHomePage> {
               maxLines: 1,
             ),
           ),
-          IconButton(
-            icon: const Icon(
-              Icons.settings,
-              color: Colors.white,
-              size: 25.0,
-            ),
-            onPressed: () {
-              log('Settings Tapped!');
-            },
-          ),
+
         ],
         onReady: () {
           _isPlayerReady = true;
@@ -183,7 +174,13 @@ class _MyHomePageState extends State<MyHomePage> {
           backgroundColor: Colors.black,
           leading: Padding(
               padding: const EdgeInsets.only(left: 12.0),
-              child: Icon(Icons.chevron_left)),
+              child: IconButton(
+                icon: Icon(Icons.chevron_left,
+                ),
+                onPressed: (){
+                  //Navigator.pop(context);
+                  },
+              )),
           title: Text(
             channel.channelname + " Live",
             style: TextStyle(color: Colors.white),
@@ -192,6 +189,22 @@ class _MyHomePageState extends State<MyHomePage> {
         body: ListView(
           children: [
             player,
+            
+            Container(
+              margin: EdgeInsets.all(5),
+              height: 50,
+              color: Colors.black12,
+              child: Row(
+                children: [
+                  Text(channel.channelname,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold,
+
+                  )
+                  ),
+                ],
+              ),
+            )
             // Padding(
             //   padding: const EdgeInsets.all(8.0),
             //   child: Column(

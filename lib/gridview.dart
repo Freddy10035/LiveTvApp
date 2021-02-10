@@ -4,7 +4,7 @@ import 'package:live_tv_app/modelChannel.dart';
 import 'package:live_tv_app/youtubePlayer.dart';
 
 void main() {
-  runApp(GridPage());
+ // runApp(GridPage());
 }
 
 class GridPage extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -6,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:live_tv_app/gridview.dart';
 import 'package:live_tv_app/modelChannel.dart';
 import 'package:live_tv_app/horizontalScrollView.dart';
+import 'package:live_tv_app/searchChannel.dart';
 import 'package:live_tv_app/textDesign.dart';
 //import 'package:google_fonts/google_fonts.dart';
 
@@ -57,6 +59,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  TextEditingController _controller;
   int _current = 0; //for image counter
   bool _folded = true;
   List<String> list = [
@@ -68,6 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
   ]; // for carousel
 
   //Future<List<ModelChannel>> future;
+  List<ModelChannel> filteredChannel = new List();
   List<ModelChannel> allChannels = new List();
   List<ModelChannel> bd = new List();
   List<ModelChannel> france = new List();
@@ -84,7 +88,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ModelChannel> california = new List();
   List<ModelChannel> southKorea = new List();
   List<ModelChannel> vatican = new List();
-  Future future;
+
+  //Future future;
 
   List<ModelChannel> parseChannel(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
@@ -96,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<List<ModelChannel>> getData(http.Client client) async {
     final response =
-    await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
+        await http.get('https://andoirdtvapp.hiphopnblog.com/fetch_jason.php');
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -104,6 +109,7 @@ class _MyHomePageState extends State<MyHomePage> {
       this.setState(() {
         allChannels = parseChannel(response.body);
         //bool loading= false;
+        filteredChannel = allChannels;
       });
 
       //print(allChannels.length);
@@ -196,7 +202,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    future = this.getData(http.Client());
+    this.getData(http.Client());
+    _controller = TextEditingController();
+  }
+
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -214,10 +226,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Expanded(
               flex: 1,
               child: Container(
-                width: MediaQuery
-                    .of(context)
-                    .size
-                    .width * 0.85,
+                width: MediaQuery.of(context).size.width * 0.85,
                 child: DrawerHeader(
                   decoration: BoxDecoration(
                       image: DecorationImage(
@@ -314,7 +323,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   initialPage: 0,
                   enableInfiniteScroll: false,
                   enlargeCenterPage: true,
-
                   onPageChanged: (index, reason) {
                     setState(() {
                       _current = index;
@@ -326,7 +334,6 @@ class _MyHomePageState extends State<MyHomePage> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(5)),
                     image: DecorationImage(
-
                       image: AssetImage('assets/image/1.jpg'),
                       fit: BoxFit.cover,
                     ),
@@ -393,7 +400,6 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 10,
             ),
             Container(
-
               //search bar
               width: 320,
               height: 44,
@@ -405,28 +411,70 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: [
                   Expanded(
-                      child: Container(
-                          padding: EdgeInsets.only(left: 16),
-                          child: TextField(
-                            textAlign: TextAlign.center,
-                            decoration: InputDecoration(
-                              hintText: 'Search Channel Name',
-                              suffixIcon: Icon(Icons.search),
-                              hintStyle: TextStyle(color: Colors.black54),
-                              border: InputBorder.none,
-                              //fillColor: Colors.red,
-                            ),
-                          )
-
-                      )),
-
+                    child: Container(
+                      padding: EdgeInsets.only(left: 16),
+                      child: TextField(
+                        controller: _controller,
+                        autofocus: false,
+                        onSubmitted: (string){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Search(channel: allChannels,string: string,
+                                  )));
+                        },
+                        // onChanged: (string) {
+                        //   setState(() {
+                        //     filteredChannel = allChannels
+                        //         .where((element) => (element.channelname
+                        //             .toLowerCase()
+                        //             .contains(string.toLowerCase())))
+                        //         .toList();
+                        //   });
+                        // },
+                        //autofillHints:
+                        // buildCounter: (
+                        //   BuildContext context, {
+                        //   int currentLength,
+                        //   int maxLength,
+                        //   bool isFocused,
+                        // }) {
+                        //   return Text(
+                        //     '$currentLength of $maxLength characters',
+                        //     semanticsLabel: 'character count',
+                        //   );
+                        // },
+                        onTap: () {},
+                        //readOnly: true,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          floatingLabelBehavior: FloatingLabelBehavior.auto,
+                          // counter: ListView.builder(
+                          //     padding: const EdgeInsets.all(8),
+                          //     itemCount: filteredChannel.length,
+                          //     itemBuilder: (BuildContext context, int index) {
+                          //       return Container(
+                          //         height: 50,
+                          //         child: Center(child: Text(filteredChannel[index].channelname)),
+                          //       );
+                          //     }
+                          // ),
+                          //counterText: ,
+                          hintText: 'Search Channel Name',
+                          suffixIcon: Icon(Icons.search),
+                          hintStyle: TextStyle(color: Colors.black54),
+                          border: InputBorder.none,
+                          //fillColor: Colors.red,
+                        ),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
             SizedBox(
               height: 10,
             ),
-
             Row(
               // first listview
               children: <Widget>[
@@ -437,52 +485,52 @@ class _MyHomePageState extends State<MyHomePage> {
                     softWrap: true,
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 15,
+                        fontSize: 12,
                         decoration: TextDecoration.underline,
                         decorationColor: Colors.red),
                     textScaleFactor: 1.5,
                   ),
                 ),
                 Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) =>
-                                GridPage(channel: allChannels,)));
-                      },
-                      child: const Text('See All',
-                          softWrap: true,
-                          style: TextStyle(fontSize: 12, color: Colors.white)),
-                      style: ButtonStyle(
-                        backgroundColor:
-                        MaterialStateProperty.all<Color>(Colors.red),
-                        minimumSize: MaterialStateProperty.all(Size.square(30)),
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GridPage(
+                                  channel: allChannels,
+                                )));
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    child: Text(
+                      "See All",
+                      softWrap: true,
+                      textAlign: TextAlign.right,
+                      style: TextStyle(
+                        backgroundColor: Colors.red,
+                        color: Colors.white,
+                        // background:,
                       ),
-                    )),
+                    ),
+                  ),
+                )),
               ],
             ),
             Row(
               children: <Widget>[
                 Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(allChannels)
-                    )),
+                    child: SizedBox(height: 200.0, child: Scroll(allChannels))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
             SizedBox(
               height: 10,
             ),
-
             CountryName(bd),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(bd)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(bd))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -493,10 +541,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: <Widget>[
                 Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(pakistan)
-                    )),
+                    child: SizedBox(height: 200.0, child: Scroll(pakistan))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -507,10 +552,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: <Widget>[
                 Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(singapore)
-                    )),
+                    child: SizedBox(height: 200.0, child: Scroll(singapore))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -520,11 +562,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(qatar),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(qatar)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(qatar))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -534,11 +572,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(us),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(us)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(us))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -548,11 +582,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(russia),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(russia)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(russia))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -562,11 +592,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(uk),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(uk)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(uk))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -576,11 +602,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(turkey),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(turkey)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(turkey))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -590,11 +612,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(india),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(india)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(india))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -604,11 +622,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(saudi),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(saudi)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(saudi))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -618,11 +632,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(un),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(un)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(un))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -633,10 +643,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: <Widget>[
                 Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(california)
-                    )),
+                    child: SizedBox(height: 200.0, child: Scroll(california))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -647,10 +654,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: <Widget>[
                 Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(southKorea)
-                    )),
+                    child: SizedBox(height: 200.0, child: Scroll(southKorea))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -661,10 +665,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Row(
               children: <Widget>[
                 Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(vatican)
-                    )),
+                    child: SizedBox(height: 200.0, child: Scroll(vatican))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
@@ -674,11 +675,7 @@ class _MyHomePageState extends State<MyHomePage> {
             CountryName(france),
             Row(
               children: <Widget>[
-                Expanded(
-                    child: SizedBox(
-                        height: 200.0,
-                        child: Scroll(france)
-                    )),
+                Expanded(child: SizedBox(height: 200.0, child: Scroll(france))),
               ],
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
             ),
