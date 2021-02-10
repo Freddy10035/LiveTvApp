@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -60,8 +59,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   TextEditingController _controller;
-  int _current = 0; //for image counter
-  bool _folded = true;
+  int _current = 0; //for image carousel counter
   List<String> list = [
     "1.jpg",
     "2.jpg",
@@ -70,7 +68,7 @@ class _MyHomePageState extends State<MyHomePage> {
     "5.jpg"
   ]; // for carousel
 
-  //Future<List<ModelChannel>> future;
+
   List<ModelChannel> filteredChannel = new List();
   List<ModelChannel> allChannels = new List();
   List<ModelChannel> bd = new List();
@@ -88,6 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ModelChannel> california = new List();
   List<ModelChannel> southKorea = new List();
   List<ModelChannel> vatican = new List();
+  List<String> channelNames;
+ //bool enabled=false;
 
   //Future future;
 
@@ -109,11 +109,13 @@ class _MyHomePageState extends State<MyHomePage> {
       this.setState(() {
         allChannels = parseChannel(response.body);
         //bool loading= false;
-        filteredChannel = allChannels;
+        //filteredChannel = allChannels;
       });
 
       //print(allChannels.length);
       allChannels.forEach((element) {
+       // channelNames.add(element.channelname);
+
         if (element.channeltype == "7") {
           if (bd.isEmpty) {
             bd.add(element);
@@ -188,7 +190,7 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         }
       });
-      //print(pakistan.length);
+
 
       return parseChannel(response.body);
     } else {
@@ -197,6 +199,7 @@ class _MyHomePageState extends State<MyHomePage> {
       throw Exception('Failed to load album');
     }
   }
+
 
   @override
   void initState() {
@@ -415,6 +418,13 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: EdgeInsets.only(left: 16),
                       child: TextField(
                         controller: _controller,
+                        autofillHints: channelNames,
+                        enableInteractiveSelection: true,
+                        enableSuggestions: true,
+                        cursorColor: Colors.red,
+                        cursorWidth: 2,
+                        cursorHeight:20,
+
                         autofocus: false,
                         onSubmitted: (string){
                           Navigator.push(
@@ -444,24 +454,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         //     semanticsLabel: 'character count',
                         //   );
                         // },
-                        onTap: () {},
                         //readOnly: true,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-                          floatingLabelBehavior: FloatingLabelBehavior.auto,
-                          // counter: ListView.builder(
-                          //     padding: const EdgeInsets.all(8),
-                          //     itemCount: filteredChannel.length,
-                          //     itemBuilder: (BuildContext context, int index) {
-                          //       return Container(
-                          //         height: 50,
-                          //         child: Center(child: Text(filteredChannel[index].channelname)),
-                          //       );
-                          //     }
-                          // ),
-                          //counterText: ,
+
+                          //hintMaxLines: 3,
                           hintText: 'Search Channel Name',
-                          suffixIcon: Icon(Icons.search),
+                          suffixIcon: Icon(Icons.search,color: Colors.blue),
                           hintStyle: TextStyle(color: Colors.black54),
                           border: InputBorder.none,
                           //fillColor: Colors.red,

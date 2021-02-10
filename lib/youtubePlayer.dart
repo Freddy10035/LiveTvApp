@@ -142,8 +142,8 @@ class _MyHomePageState extends State<MyHomePage> {
       },
       player: YoutubePlayer(
         controller: _controller,
-        showVideoProgressIndicator: true,
-        progressIndicatorColor: Colors.blueAccent,
+        //showVideoProgressIndicator: true,
+        //progressIndicatorColor: Colors.blueAccent,
         topActions: <Widget>[
           const SizedBox(width: 8.0),
           Expanded(
@@ -172,19 +172,19 @@ class _MyHomePageState extends State<MyHomePage> {
         key: _scaffoldKey,
         appBar: AppBar(
           backgroundColor: Colors.black,
-          leading: Padding(
-              padding: const EdgeInsets.only(left: 12.0),
-              child: IconButton(
-                icon: Icon(Icons.chevron_left,
-                ),
-                onPressed: (){
-                  //Navigator.pop(context);
-                  },
-              )),
           title: Text(
             channel.channelname + " Live",
             style: TextStyle(color: Colors.white),
           ),
+          leading: IconButton(
+                icon: Icon(Icons.chevron_left),
+                color: Colors.white,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+
+
         ),
         body: ListView(
           children: [
