@@ -430,18 +430,19 @@ class _MyHomePageState extends State<MyHomePage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Search(channel: allChannels,string: string,
+                                  builder: (context) => Search(filteredChannel: filteredChannel,string: string,allChannel: allChannels,
                                   )));
                         },
-                        // onChanged: (string) {
-                        //   setState(() {
-                        //     filteredChannel = allChannels
-                        //         .where((element) => (element.channelname
-                        //             .toLowerCase()
-                        //             .contains(string.toLowerCase())))
-                        //         .toList();
-                        //   });
-                        // },
+                        onChanged: (string) {
+                          setState(() {
+                            filteredChannel = allChannels
+                                .where((element) => (element.channelname
+                                    .toLowerCase()
+                                    .contains(string.toLowerCase())
+                            ))
+                                .toList();
+                          });
+                        },
                         //autofillHints:
                         // buildCounter: (
                         //   BuildContext context, {
@@ -460,7 +461,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
                           //hintMaxLines: 3,
                           hintText: 'Search Channel Name',
-                          suffixIcon: Icon(Icons.search,color: Colors.blue),
+                          suffixIcon: IconButton(
+                            icon: Icon(Icons.search),
+                            splashColor: Colors.blue,
+                            splashRadius: 5.0,
+                            color: Colors.blue,
+                            onPressed: (){
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Search(filteredChannel: filteredChannel,string: _controller.text,
+                                      )));
+                            },
+                          ),
                           hintStyle: TextStyle(color: Colors.black54),
                           border: InputBorder.none,
                           //fillColor: Colors.red,
@@ -478,16 +491,19 @@ class _MyHomePageState extends State<MyHomePage> {
               // first listview
               children: <Widget>[
                 Expanded(
-                  child: Text(
-                    allChannels.isEmpty ? "Loading" : "All Channels",
-                    textAlign: TextAlign.left,
-                    softWrap: true,
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 12,
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.red),
-                    textScaleFactor: 1.5,
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      allChannels.isEmpty ? "Loading" : "All Channels",
+                      textAlign: TextAlign.left,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.red),
+                      textScaleFactor: 1.5,
+                    ),
                   ),
                 ),
                 Expanded(

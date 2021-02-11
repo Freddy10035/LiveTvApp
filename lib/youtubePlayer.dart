@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -26,7 +25,7 @@ class LiveTvPlayer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
+      //debugShowCheckedModeBanner: false,
       //title: channel.channelname + "",
       // theme: ThemeData(
       //   primarySwatch: Colors.blue,
@@ -136,6 +135,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return YoutubePlayerBuilder(
+      onEnterFullScreen: (){
+        SystemChrome.setPreferredOrientations(DeviceOrientation.values);
+      },
       onExitFullScreen: () {
         // The player forces portraitUp after exiting fullscreen. This overrides the behaviour.
         SystemChrome.setPreferredOrientations(DeviceOrientation.values);

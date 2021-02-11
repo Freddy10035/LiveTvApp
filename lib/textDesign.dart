@@ -14,16 +14,19 @@ class CountryName extends StatelessWidget {
       // first listview
       children: <Widget>[
         Expanded(
-          child: Text(
-            channel.isEmpty ? "Loading" : channel[0].categoryname,
-            textAlign: TextAlign.left,
-            softWrap: true,
-            style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 12,
-                decoration: TextDecoration.underline,
-                decorationColor: Colors.red),
-            textScaleFactor: 1.5,
+          child: Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text(
+              channel.isEmpty ? "Loading" : channel[0].categoryname,
+              textAlign: TextAlign.left,
+              softWrap: true,
+              style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 12,
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.red),
+              textScaleFactor: 1.5,
+            ),
           ),
         ),
         Expanded(
@@ -37,7 +40,7 @@ class CountryName extends StatelessWidget {
                               channel: channel,
                             )));
               },
-              child: Container(
+              child: channel.length>5  ? Container(
                 padding: EdgeInsets.all(10),
                 child: Text(
                   "See All",
@@ -49,7 +52,12 @@ class CountryName extends StatelessWidget {
                     // background:,
                   ),
                 ),
-              ),
+              )
+                  : SizedBox(
+                height: 1,
+                width: 1,
+              )
+              ,
             )),
       ],
     );

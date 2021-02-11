@@ -4,7 +4,7 @@ import 'package:live_tv_app/modelChannel.dart';
 import 'package:live_tv_app/youtubePlayer.dart';
 
 void main() {
- // runApp(GridPage());
+  // runApp(GridPage());
 }
 
 class GridPage extends StatelessWidget {
@@ -54,16 +54,33 @@ class GridPage extends StatelessWidget {
                                 channel: channel[index],
                               )));
                 },
-                child: Container(
-                  decoration: BoxDecoration(
-                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
-                    image: DecorationImage(
-                      image: NetworkImage(channel[index].channelimage),
-                      fit: BoxFit.cover,
+                child: Stack(alignment: Alignment.bottomCenter, children: [
+                  Container(
+                    decoration: BoxDecoration(
+                      //  borderRadius: BorderRadius.all(Radius.circular(12)),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          channel[index].channelimage,
+                        ),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
-                ),
+                  Container(
+                    //color: Colors.black12,
+                    width: 200,
+                    height: 16,
+                    child: Text(
+                      channel[index].channelname,
+
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white,),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ]),
               );
-            })));
+            }))
+    );
   }
 }
