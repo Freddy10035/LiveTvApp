@@ -72,15 +72,16 @@ class GridPage extends StatelessWidget {
                     height: 16,
                     child: Text(
                       channel[index].channelname,
-
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 15,color: Colors.white,),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 15,
+                        color: Colors.white,
+                      ),
                       textAlign: TextAlign.center,
                     ),
                   ),
                 ]),
               );
-            }))
-    );
+            })));
   }
 }

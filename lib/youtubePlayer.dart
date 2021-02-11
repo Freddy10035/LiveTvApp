@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return YoutubePlayerBuilder(
-      onEnterFullScreen: (){
+      onEnterFullScreen: () {
         SystemChrome.setPreferredOrientations(DeviceOrientation.values);
       },
       onExitFullScreen: () {
@@ -159,7 +159,6 @@ class _MyHomePageState extends State<MyHomePage> {
               maxLines: 1,
             ),
           ),
-
         ],
         onReady: () {
           _isPlayerReady = true;
@@ -173,25 +172,22 @@ class _MyHomePageState extends State<MyHomePage> {
       builder: (context, player) => Scaffold(
         key: _scaffoldKey,
         appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: Text(
-            channel.channelname + " Live",
-            style: TextStyle(color: Colors.white),
-          ),
-          leading: IconButton(
-                icon: Icon(Icons.chevron_left),
-                color: Colors.white,
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-
-
-        ),
+            backgroundColor: Colors.black,
+            title: Text(
+              channel.channelname + " Live",
+              style: TextStyle(color: Colors.white),
+            ),
+            leading: IconButton(
+              icon: Icon(Icons.chevron_left),
+              color: Colors.white,
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            )),
         body: ListView(
           children: [
             player,
-            
+
             Container(
               margin: EdgeInsets.all(5),
               height: 50,
@@ -199,11 +195,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Row(
                 children: [
                   Text(channel.channelname,
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontWeight: FontWeight.bold,
-
-                  )
-                  ),
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      )),
                 ],
               ),
             )

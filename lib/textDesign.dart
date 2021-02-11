@@ -31,34 +31,33 @@ class CountryName extends StatelessWidget {
         ),
         Expanded(
             child: InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            GridPage(
-                              channel: channel,
-                            )));
-              },
-              child: channel.length>5  ? Container(
-                padding: EdgeInsets.all(10),
-                child: Text(
-                  "See All",
-                  softWrap: true,
-                  textAlign: TextAlign.right,
-                  style: TextStyle(
-                    backgroundColor: Colors.red,
-                    color: Colors.white,
-                    // background:,
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => GridPage(
+                          channel: channel,
+                        )));
+          },
+          child: channel.length > 5
+              ? Container(
+                  padding: EdgeInsets.all(10),
+                  child: Text(
+                    "See All",
+                    softWrap: true,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(
+                      backgroundColor: Colors.red,
+                      color: Colors.white,
+                      // background:,
+                    ),
                   ),
+                )
+              : SizedBox(
+                  height: 1,
+                  width: 1,
                 ),
-              )
-                  : SizedBox(
-                height: 1,
-                width: 1,
-              )
-              ,
-            )),
+        )),
       ],
     );
   }

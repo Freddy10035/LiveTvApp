@@ -68,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
     "5.jpg"
   ]; // for carousel
 
-
   List<ModelChannel> filteredChannel = new List();
   List<ModelChannel> allChannels = new List();
   List<ModelChannel> bd = new List();
@@ -87,7 +86,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<ModelChannel> southKorea = new List();
   List<ModelChannel> vatican = new List();
   List<String> channelNames;
- //bool enabled=false;
+
+  //bool enabled=false;
 
   //Future future;
 
@@ -114,7 +114,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
       //print(allChannels.length);
       allChannels.forEach((element) {
-       // channelNames.add(element.channelname);
+        // channelNames.add(element.channelname);
 
         if (element.channeltype == "7") {
           if (bd.isEmpty) {
@@ -191,7 +191,6 @@ class _MyHomePageState extends State<MyHomePage> {
         }
       });
 
-
       return parseChannel(response.body);
     } else {
       //If the server did not return a 200 OK response,
@@ -199,7 +198,6 @@ class _MyHomePageState extends State<MyHomePage> {
       throw Exception('Failed to load album');
     }
   }
-
 
   @override
   void initState() {
@@ -423,23 +421,25 @@ class _MyHomePageState extends State<MyHomePage> {
                         enableSuggestions: true,
                         cursorColor: Colors.red,
                         cursorWidth: 2,
-                        cursorHeight:20,
+                        cursorHeight: 20,
 
                         autofocus: false,
-                        onSubmitted: (string){
+                        onSubmitted: (string) {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Search(filteredChannel: filteredChannel,string: string,allChannel: allChannels,
-                                  )));
+                                  builder: (context) => Search(
+                                        filteredChannel: filteredChannel,
+                                        string: string,
+                                        allChannel: allChannels,
+                                      )));
                         },
                         onChanged: (string) {
                           setState(() {
                             filteredChannel = allChannels
                                 .where((element) => (element.channelname
                                     .toLowerCase()
-                                    .contains(string.toLowerCase())
-                            ))
+                                    .contains(string.toLowerCase())))
                                 .toList();
                           });
                         },
@@ -458,7 +458,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         //readOnly: true,
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
-
                           //hintMaxLines: 3,
                           hintText: 'Search Channel Name',
                           suffixIcon: IconButton(
@@ -466,12 +465,15 @@ class _MyHomePageState extends State<MyHomePage> {
                             splashColor: Colors.blue,
                             splashRadius: 5.0,
                             color: Colors.blue,
-                            onPressed: (){
+                            onPressed: () {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Search(filteredChannel: filteredChannel,string: _controller.text,
-                                      )));
+                                      builder: (context) => Search(
+                                            filteredChannel: filteredChannel,
+                                            string: _controller.text,
+                                            allChannel: allChannels,
+                                          )));
                             },
                           ),
                           hintStyle: TextStyle(color: Colors.black54),
