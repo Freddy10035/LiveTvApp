@@ -545,157 +545,77 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 10,
             ),
             CountryName(bd),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(bd))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(bd),
             SizedBox(
               height: 10,
             ),
             CountryName(pakistan),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: SizedBox(height: 200.0, child: Scroll(pakistan))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(pakistan),
             SizedBox(
               height: 10,
             ),
             CountryName(singapore),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: SizedBox(height: 200.0, child: Scroll(singapore))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(singapore),
             SizedBox(
               height: 10,
             ),
             CountryName(qatar),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(qatar))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(qatar),
             SizedBox(
               height: 10,
             ),
             CountryName(us),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(us))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(us),
             SizedBox(
               height: 10,
             ),
             CountryName(russia),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(russia))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(russia),
             SizedBox(
               height: 10,
             ),
             CountryName(uk),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(uk))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(uk),
             SizedBox(
               height: 10,
             ),
             CountryName(turkey),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(turkey))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(turkey),
             SizedBox(
               height: 10,
             ),
             CountryName(india),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(india))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(india),
             SizedBox(
               height: 10,
             ),
             CountryName(saudi),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(saudi))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(saudi),
             SizedBox(
               height: 10,
             ),
             CountryName(un),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(un))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(un),
             SizedBox(
               height: 10,
             ),
             CountryName(california),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: SizedBox(height: 200.0, child: Scroll(california))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(california),
             SizedBox(
               height: 10,
             ),
             CountryName(southKorea),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: SizedBox(height: 200.0, child: Scroll(southKorea))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(southKorea),
             SizedBox(
               height: 10,
             ),
             CountryName(vatican),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: SizedBox(height: 200.0, child: Scroll(vatican))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(vatican),
             SizedBox(
               height: 10,
             ),
             CountryName(france),
-            Row(
-              children: <Widget>[
-                Expanded(child: SizedBox(height: 200.0, child: Scroll(france))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(france),
             SizedBox(
               height: 10,
             ),

@@ -13,22 +13,25 @@ class CountryName extends StatelessWidget {
     return Row(
       // first listview
       children: <Widget>[
-        Expanded(
-          child: Container(
-            margin: EdgeInsets.only(left: 10),
-            child: Text(
-              channel.isEmpty ? "Loading" : channel[0].categoryname,
-              textAlign: TextAlign.left,
-              softWrap: true,
-              style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 12,
-                  decoration: TextDecoration.underline,
-                  decorationColor: Colors.red),
-              textScaleFactor: 1.5,
-            ),
-          ),
+        (channel.length==0) ? SizedBox(
+          height: 0.1,
+        )
+            : Expanded(
+      child: Container(
+        margin: EdgeInsets.only(left: 10),
+        child: Text(
+          channel.isEmpty ? "Loading" : channel[0].categoryname,
+          textAlign: TextAlign.left,
+          softWrap: true,
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 12,
+              decoration: TextDecoration.underline,
+              decorationColor: Colors.red),
+          textScaleFactor: 1.5,
         ),
+      ),
+    ),
         Expanded(
             child: InkWell(
           onTap: () {
@@ -54,8 +57,8 @@ class CountryName extends StatelessWidget {
                   ),
                 )
               : SizedBox(
-                  height: 1,
-                  width: 1,
+                  // height: 1,
+                  // width: 1,
                 ),
         )),
       ],

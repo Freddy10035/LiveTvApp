@@ -27,6 +27,12 @@ dependencies:
   #google_fonts: ^1.1.2
   youtube_player_flutter: ^7.0.0+7
   http: ^0.12.2
+  flutter_launcher_icons: "^0.8.0"
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png"
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -55,6 +61,7 @@ flutter:
       - assets/image/3.jpg
       - assets/image/4.jpg
       - assets/image/5.jpg
+      #- assets/icon/LOGO.png
 
   # To add assets to your application, add an assets section, like this:
 
