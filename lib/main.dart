@@ -229,10 +229,10 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Container(
                 width: MediaQuery.of(context).size.width * 0.85,
                 child: DrawerHeader(
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("images/header.jpeg"),
-                          fit: BoxFit.cover)),
+                  // decoration: BoxDecoration(
+                  //     image: DecorationImage(
+                  //         //image: AssetImage("images/header.jpeg"),
+                  //         fit: BoxFit.cover)),
                   child: Text("Header"),
                 ),
               ),
@@ -508,7 +508,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                 ),
-                Expanded(
+                (allChannels.length>5) ?Expanded(
                     child: InkWell(
                   onTap: () {
                     Navigator.push(
@@ -531,16 +531,11 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     ),
                   ),
-                )),
+                )): SizedBox()
+                ,
               ],
             ),
-            Row(
-              children: <Widget>[
-                Expanded(
-                    child: SizedBox(height: 200.0, child: Scroll(allChannels))),
-              ],
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            ),
+            Scroll(allChannels),
             SizedBox(
               height: 10,
             ),
