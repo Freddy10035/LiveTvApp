@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-//import 'package:live_tv_app/gridview.dart';
+import 'package:live_tv_app/gridview.dart';
 import 'package:live_tv_app/modelChannel.dart';
 
 class CountryName extends StatelessWidget {
@@ -35,7 +35,12 @@ class CountryName extends StatelessWidget {
         Expanded(
             child: InkWell(
           onTap: () {
-
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => GridPage(
+                      channel: channel,
+                    )));
           },
           child: channel.length > 5
               ? Container(

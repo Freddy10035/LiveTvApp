@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:live_tv_app/database_helper.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'package:live_tv_app/modelChannel.dart';
@@ -111,7 +112,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void listener() {
     if (_isPlayerReady && mounted && !_controller.value.isFullScreen) {
       setState(() {
-       // _playerState = _controller.value.playerState;
+        // _playerState = _controller.value.playerState;
         //_videoMetaData = _controller.metadata;
       });
     }
@@ -194,11 +195,46 @@ class _MyHomePageState extends State<MyHomePage> {
               color: Colors.black12,
               child: Row(
                 children: [
-                  Text(channel.channelname,
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      )),
+                  Text(
+                    channel.channelname,
+                    textAlign: TextAlign.left,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 270,
+                  ),
+                  Container(
+                    height: 45,
+                    width: 45,
+                    child: IconButton(
+                      alignment: Alignment.center,
+                      onPressed: () async{
+                        int i=await DatabaseHelper.instance.insert({
+                          DatabaseHelper.columnChannelName: channel.channelname,
+                          DatabaseHelper.columnChannelCategory: channel.categoryname,
+                          DatabaseHelper.columnChannelId: channel.channelid,
+                          DatabaseHelper.columnChannelType: channel.channeltype,
+                          DatabaseHelper.columnChannelUrl: channel.channelurl,
+                          DatabaseHelper.columnChannelImage: channel.channelimage,
+                        });
+                        print('id is $i');
+
+                      },
+                      icon: Icon(
+                        Icons.add,
+                        color: Colors.red,
+                        size: 30,
+                      ),
+                    ),
+                    //color: Colors.red,
+                    alignment: Alignment.topRight,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      color: Colors.black12,
+                    ),
+                  )
                 ],
               ),
             )

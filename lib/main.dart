@@ -2,12 +2,17 @@ import 'dart:convert';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:live_tv_app/database_helper.dart';
+import 'package:live_tv_app/modelFavorite.dart';
+import 'package:path/path.dart';
+import 'package:sqflite/sqflite.dart';
 
 import 'package:live_tv_app/gridview.dart';
 import 'package:live_tv_app/modelChannel.dart';
 import 'package:live_tv_app/horizontalScrollView.dart';
 import 'package:live_tv_app/searchChannel.dart';
 import 'package:live_tv_app/textDesign.dart';
+
 //import 'package:google_fonts/google_fonts.dart';
 
 void main() {
@@ -69,6 +74,8 @@ class _MyHomePageState extends State<MyHomePage> {
   ]; // for carousel
 
   List<ModelChannel> filteredChannel = new List();
+  Future<List<Favorite>> favoriteChannel;
+  List<Favorite> f = new List();
   List<ModelChannel> allChannels = new List();
   List<ModelChannel> bd = new List();
   List<ModelChannel> france = new List();
@@ -89,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
   //bool enabled=false;
 
-  //Future future;
+
+
 
   List<ModelChannel> parseChannel(String responseBody) {
     final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
@@ -204,6 +212,9 @@ class _MyHomePageState extends State<MyHomePage> {
     // TODO: implement initState
     super.initState();
     this.getData(http.Client());
+    favoriteChannel= DatabaseHelper.instance.retrieveFavorite();
+    favoriteChannel.then((value) { if(value != null) value.forEach((item) => f.add(item));});
+    print(f);
     _controller = TextEditingController();
   }
 
@@ -443,19 +454,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 .toList();
                           });
                         },
-                        //autofillHints:
-                        // buildCounter: (
-                        //   BuildContext context, {
-                        //   int currentLength,
-                        //   int maxLength,
-                        //   bool isFocused,
-                        // }) {
-                        //   return Text(
-                        //     '$currentLength of $maxLength characters',
-                        //     semanticsLabel: 'character count',
-                        //   );
-                        // },
-                        //readOnly: true,
+
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           //hintMaxLines: 3,
@@ -488,6 +487,55 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             SizedBox(
               height: 10,
+            ),
+            (f.isEmpty)?SizedBox(
+              height: 10,
+            )
+                :Row(
+              // first listview
+              children: <Widget>[
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "Favorite Channels",
+                      textAlign: TextAlign.left,
+                      softWrap: true,
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.red),
+                      textScaleFactor: 1.5,
+                    ),
+                  ),
+                ),
+                (f.length>5) ?Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => GridPage(
+                                  channel: allChannels,
+                                )));
+                      },
+                      child: Container(
+                        padding: EdgeInsets.all(10),
+                        child: Text(
+                          "See All",
+                          softWrap: true,
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            backgroundColor: Colors.red,
+                            color: Colors.white,
+                            // background:,
+                          ),
+                        ),
+                      ),
+                    )): SizedBox()
+                ,
+              ],
             ),
             Row(
               // first listview
