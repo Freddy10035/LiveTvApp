@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+
 import 'package:provider/provider.dart';
 
+import 'model/modelChannel.dart';
 import 'theme_manager.dart';
 import 'youtubePlayer.dart';
 
-class GridPage extends StatelessWidget {
-  final List<String> list;
+class FavoriteGridPage extends StatelessWidget {
+  final List<ModelChannel> channel;
 
-  const GridPage({Key key, this.list}) : super(key: key);
+  const FavoriteGridPage({Key key, this.channel}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -15,44 +17,36 @@ class GridPage extends StatelessWidget {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
     return MaterialApp(
       theme: themeNotifier.getTheme(),
-      home: MyGrid(
-        channel: list,
-      ),
+      home: MyHome(channel: channel),
     );
   }
 }
 
-class MyGrid extends StatefulWidget {
-  final List<String> channel;
+class MyHome extends StatefulWidget {
+  final List<ModelChannel> channel;
 
-  const MyGrid({Key key, this.channel}) : super(key: key);
+  MyHome({Key key, this.channel}) : super(key: key);
 
   @override
-  _MyGridState createState() => _MyGridState(channel);
+  _MyHomeState createState() => _MyHomeState(channel);
 }
 
-class _MyGridState extends State<MyGrid> {
-  final List<String> channel;
+class _MyHomeState extends State<MyHome> {
+  final List<ModelChannel> channel;
 
-  _MyGridState(this.channel);
+  _MyHomeState(this.channel);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            //backgroundColor: Colors.white,
-            title: (channel.length < 10)
-                ? Text(
-                    "Your Channels",
-                  )
-                : Text(
-                    "All Channels",
-                    style: TextStyle(),
-                  ),
+            title: Text(
+              "Favorite Channels",
+            ),
             leading: IconButton(
               icon: Icon(Icons.chevron_left),
               onPressed: () {
-                Navigator.of(context, rootNavigator: true).pop(context);
+                Navigator.pop(context);
               },
             )),
         body: GridView.count(
@@ -64,19 +58,15 @@ class _MyGridState extends State<MyGrid> {
             children: List.generate(channel.length, (index) {
               return InkWell(
                 onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          settings: RouteSettings(name: 'youtube player'),
-                          builder: (context) => LiveTvPlayer()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LiveTvPlayer()));
                 },
                 child: Stack(alignment: Alignment.bottomCenter, children: [
                   Container(
                     decoration: BoxDecoration(
-                      //  borderRadius: BorderRadius.all(Radius.circular(12)),
                       image: DecorationImage(
-                        image: AssetImage(
-                          channel[index],
+                        image: NetworkImage(
+                          channel[index].channelimage,
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -86,7 +76,7 @@ class _MyGridState extends State<MyGrid> {
                     width: 200,
                     height: 16,
                     child: Text(
-                      "Channel Name",
+                      channel[index].channelname,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 15,

@@ -1,6 +1,6 @@
 {
-    "name": "live_tv_app",
-    "short_name": "live_tv_app",
+    "name": "live_tv",
+    "short_name": "live_tv",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

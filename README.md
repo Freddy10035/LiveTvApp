@@ -1,4 +1,4 @@
-# live_tv_app
+# live_tv
 
 A new Flutter application.
 

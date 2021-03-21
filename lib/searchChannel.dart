@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:live_tv_app/modelChannel.dart';
-import 'package:live_tv_app/youtubePlayer.dart';
-
-void main() {
-  // runApp(GridPage());
-}
+import 'model/modelChannel.dart';
+import 'youtubePlayer.dart';
 
 class Search extends StatelessWidget {
   final List<ModelChannel> filteredChannel;
@@ -15,21 +11,6 @@ class Search extends StatelessWidget {
   const Search({Key key, this.filteredChannel, this.allChannel, this.string})
       : super(key: key);
 
-  // ModelChannel foundChannel;
-  //
-  // bool check(){
-  //   bool found=false;
-  //   channel.forEach((element) {
-  //     if(element.channelname == string){
-  //       foundChannel=element;
-  //       found=true;
-  //     }
-  //
-  //   });
-  //   return found;
-  // }
-
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,11 +26,7 @@ class Search extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-          )
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-
-          ),
+          )),
       body: Column(
         children: [
           SizedBox(
@@ -78,16 +55,13 @@ class Search extends StatelessWidget {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => LiveTvPlayer(
-                                          channel: filteredChannel[index],
-                                        )));
+                                    builder: (context) => LiveTvPlayer()));
                           },
                           child: Stack(
                               alignment: Alignment.bottomCenter,
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    //  borderRadius: BorderRadius.all(Radius.circular(12)),
                                     image: DecorationImage(
                                       image: NetworkImage(
                                         filteredChannel[index].channelimage,
@@ -136,7 +110,7 @@ class SearchChannels extends StatefulWidget {
 class _SearchChannelsState extends State<SearchChannels> {
   final List<ModelChannel> channel;
   final List<ModelChannel> channel2;
-  List<ModelChannel> filteredChannel = new List();
+  List<ModelChannel> filteredChannel = [];
   final myController = TextEditingController();
   bool string = true;
 
@@ -144,7 +118,6 @@ class _SearchChannelsState extends State<SearchChannels> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     myController.dispose();
     super.dispose();
   }
@@ -152,13 +125,11 @@ class _SearchChannelsState extends State<SearchChannels> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //search bar
       width: 320,
       height: 44,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(32),
         color: Colors.black12,
-        //boxShadow: kElevationToShadow[6],
       ),
       child: Row(
         children: [
@@ -187,35 +158,13 @@ class _SearchChannelsState extends State<SearchChannels> {
                         .toList();
                   });
                 },
-                //autofillHints:
-                // buildCounter: (
-                //   BuildContext context, {
-                //   int currentLength,
-                //   int maxLength,
-                //   bool isFocused,
-                // }) {
-                //   return Text(
-                //     '$currentLength of $maxLength characters',
-                //     semanticsLabel: 'character count',
-                //   );
-                // },
+
                 onTap: () {},
                 //readOnly: true,
                 textAlign: TextAlign.center,
                 decoration: InputDecoration(
-                  //errorText: string? null: "Input Channel Name",
                   floatingLabelBehavior: FloatingLabelBehavior.auto,
-                  // counter: ListView.builder(
-                  //     padding: const EdgeInsets.all(8),
-                  //     itemCount: filteredChannel.length,
-                  //     itemBuilder: (BuildContext context, int index) {
-                  //       return Container(
-                  //         height: 50,
-                  //         child: Center(child: Text(filteredChannel[index].channelname)),
-                  //       );
-                  //     }
-                  // ),
-                  //counterText: ,
+
                   hintText: 'Search Channel Name',
                   suffixIcon: IconButton(
                     icon: Icon(Icons.search),

@@ -1,49 +1,49 @@
 import 'package:flutter/material.dart';
 
-import 'package:live_tv_app/gridview.dart';
-import 'package:live_tv_app/modelChannel.dart';
+import 'gridview.dart';
 
 class CountryName extends StatelessWidget {
-  final List<ModelChannel> channel;
+  final List<String> list;
 
-  CountryName(this.channel);
+  const CountryName({Key key, this.list}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       // first listview
       children: <Widget>[
-        (channel.length==0) ? SizedBox(
-          height: 0.1,
-        )
+        (list.length == 0)
+            ? SizedBox(
+                height: 0.1,
+              )
             : Expanded(
-      child: Container(
-        margin: EdgeInsets.only(left: 10),
-        child: Text(
-          channel.isEmpty ? "Loading" : channel[0].categoryname,
-          textAlign: TextAlign.left,
-          softWrap: true,
-          style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-              decoration: TextDecoration.underline,
-              decorationColor: Colors.red),
-          textScaleFactor: 1.5,
-        ),
-      ),
-    ),
+                child: Container(
+                  margin: EdgeInsets.only(left: 10),
+                  child: Text(
+                    "Movies",
+                    textAlign: TextAlign.left,
+                    softWrap: true,
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.red),
+                    textScaleFactor: 1.5,
+                  ),
+                ),
+              ),
         Expanded(
             child: InkWell(
-          onTap: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => GridPage(
-                      channel: channel,
-                    )));
-          },
-          child: channel.length > 5
-              ? Container(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          settings: RouteSettings(name: 'Grid View'),
+                          builder: (context) => GridPage(
+                                list: list,
+                              )));
+                },
+                child: Container(
                   padding: EdgeInsets.all(10),
                   child: Text(
                     "See All",
@@ -55,12 +55,7 @@ class CountryName extends StatelessWidget {
                       // background:,
                     ),
                   ),
-                )
-              : SizedBox(
-                  // height: 1,
-                  // width: 1,
-                ),
-        )),
+                ))),
       ],
     );
   }

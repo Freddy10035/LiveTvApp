@@ -2,10 +2,14 @@ buildscript {
     repositories {
         google()
         jcenter()
+        mavenCentral()
     }
 
     dependencies {
         classpath 'com.android.tools.build:gradle:4.1.2'
+        classpath 'com.google.gms:google-services:4.3.5'
+        //implementation 'androidx.multidex:multidex:2.0.1'
+        //implementation 'com.facebook.android:facebook-android-sdk:5.15.3'
     }
 }
 
